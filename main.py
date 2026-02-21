@@ -7,7 +7,7 @@ logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s | %(levelname)s | %(message)s',
     handlers=[
-        logging.FileHandler("logs/ventas.log"),
+        logging.FileHandler("logs/ventas.log", encoding='utf-8'),
         logging.StreamHandler()
     ]
 )
@@ -25,7 +25,8 @@ while opcion!=0:
     print("2. Panel de Administracion")
     print("3. Salir del programa")
     print("")
-    opcion = input("Selecciona una opcion: ")
+    opcion = int(input("Selecciona una opcion: "))
+    print("")
     
     match opcion:
             case 1:
@@ -46,3 +47,4 @@ while opcion!=0:
                 
             case _:
                 print("Opcion no valida. Intentalo de nuevo.")
+                print("")
