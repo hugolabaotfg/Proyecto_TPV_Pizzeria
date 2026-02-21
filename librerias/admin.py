@@ -37,7 +37,6 @@ def iniciar_sesion():
     print("Sistema bloqueado por seguridad. Cerrando programa...")
     sys.exit()
 
-# 2.3 Analisis de Datos con Pandas
 def panel_administracion():
     print("--- PANEL DE ADMINISTRACION ---")
     try:
