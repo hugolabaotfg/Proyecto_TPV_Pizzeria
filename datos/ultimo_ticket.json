@@ -1,0 +1,11 @@
+{
+    "productos": [
+        {
+            "nombre": "Pizza Test",
+            "precio": "10.00"
+        }
+    ],
+    "subtotal": 10.0,
+    "iva": 1.0,
+    "total": 11.0
+}
