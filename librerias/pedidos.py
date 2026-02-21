@@ -30,17 +30,18 @@ def realizar_pedido():
                 
     except FileNotFoundError:
         print("Error: No se encuentra el archivo productos.csv")
-        return [] # Más adelante, Brandom añadirá el log de ERROR aquí
+        logging.error("Intento de pedido fallido: No se encuentra productos.csv")
+        return []
 
     # 2. Bucle para que el usuario seleccione productos
     ticket_pedido = []
     print("\n--- REALIZAR PEDIDO ---")
     
     while True:
-        seleccion = input("Introduce el ID del producto (o '-1' para terminar): ")
+        seleccion = input("Introduce el ID del producto (o '0' para terminar): ")
         
-        if seleccion == '-1':
-            break # Salimos del bucle si el usuario escribe -1
+        if seleccion == '0':
+            break # Salimos del bucle si el usuario escribe 0
             
         # Buscamos si el ID introducido existe en nuestros productos
         producto_encontrado = None
@@ -51,9 +52,9 @@ def realizar_pedido():
                 
         if producto_encontrado:
             ticket_pedido.append(producto_encontrado)
-            print(f"✅ Añadido: {producto_encontrado['nombre']}")
+            print(f" Añadido: {producto_encontrado['nombre']}")
         else:
-            print("❌ ID no válido. Inténtalo de nuevo.")
+            print(" ID no válido. Inténtalo de nuevo.")
 
     # Devolvemos la lista con los productos que el cliente ha elegido
     return ticket_pedido

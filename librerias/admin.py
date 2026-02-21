@@ -34,10 +34,12 @@ def iniciar_sesion():
     
     # Tras 3 intentos fallidos, log ERROR y el programa se cierra
     logging.error("Acceso bloqueado: 3 intentos fallidos.")
+    print("")
     print("Sistema bloqueado por seguridad. Cerrando programa...")
     sys.exit()
 
 def panel_administracion():
+    print("")
     print("--- PANEL DE ADMINISTRACION ---")
     try:
         # Usamos Pandas para leer el ticket JSON guardado
