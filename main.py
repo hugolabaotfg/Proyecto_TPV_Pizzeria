@@ -41,7 +41,7 @@ while opcion!=0:
     
             case 3:
                 opcion=0
-                print("Gracias por usar el servicio de El Horno.")
+                print("Gracias por usar el TPV de El Horno.")
                 print("Saliendo...")
                 
             case _:
