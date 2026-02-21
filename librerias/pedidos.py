@@ -80,9 +80,23 @@ def procesar_venta(ticket_pedido):
         "total": round(total, 2)
     }
 
-    # Guardamos el ticket en un archivo JSON
-    with open('datos/ultimo_ticket.json', 'w', encoding='utf-8') as archivo:
-        json.dump(ticket_final, archivo, indent=4)
+    # Guardamos el ticket acumulándolo en un historial JSON
+    archivo_json = 'datos/ventas_totales.json'
+    historial_ventas = []
+    
+    try:
+        # Intentamos leer el historial si ya existe
+        with open(archivo_json, 'r', encoding='utf-8') as archivo:
+            historial_ventas = json.load(archivo)
+    except (FileNotFoundError, json.JSONDecodeError):
+        pass # Si no existe o está vacío, empezamos con una lista vacía
+
+    # Añadimos el ticket nuevo a la lista
+    historial_ventas.append(ticket_final)
+
+    # Sobrescribimos el archivo con la lista completa
+    with open(archivo_json, 'w', encoding='utf-8') as archivo:
+        json.dump(historial_ventas, archivo, indent=4)
 
     print("\n--- TICKET VIRTUAL ---")
     print(f"Subtotal: {subtotal:.2f}€")

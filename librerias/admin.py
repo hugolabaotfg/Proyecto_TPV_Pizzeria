@@ -42,11 +42,12 @@ def panel_administracion():
     print("")
     print("--- PANEL DE ADMINISTRACION ---")
     try:
-        # Usamos Pandas para leer el ticket JSON guardado
-        df_ticket = pd.read_json('datos/ultimo_ticket.json', typ='series')
+        # Usamos Pandas para leer el JSON que ahora es una lista de ventas
+        df_ventas = pd.read_json('datos/ventas_totales.json')
         
-        total_recaudado = df_ticket['total']
-        media_ticket = df_ticket['total']
+        # Pandas suma todos los totales y saca la media de todas las ventas
+        total_recaudado = df_ventas['total'].sum()
+        media_ticket = df_ventas['total'].mean()
         
         # Mostrar el total y la media
         print(f"Total de dinero recaudado: {total_recaudado:.2f} euros")
