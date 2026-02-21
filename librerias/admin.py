@@ -1,0 +1,57 @@
+import os
+import sys
+import json
+import logging
+import pandas as pd
+
+# Comprueba si productos.csv existe al iniciar el programa.
+def verificar_archivos():
+    if not os.path.exists('datos/productos.csv'):
+        logging.error("El archivo productos.csv no existe al iniciar el programa.")
+        print("Error: Falta el archivo 'datos/productos.csv'.")
+
+def iniciar_sesion():
+    try:
+        # La contrasena se lee desde el archivo JSON
+        with open('datos/config.json', 'r') as f:
+            config = json.load(f)
+            password_correcta = config['password']
+    except FileNotFoundError:
+        print("Error: No se encuentra el archivo 'datos/config.json'.")
+        return False
+
+    intentos = 0
+    # El usuario dispone de un maximo de 3 intentos
+    while intentos < 3:
+        clave = input("Introduce la contrasena de administrador: ")
+        if clave == password_correcta:
+            # Si el acceso es correcto, se registra log INFO
+            logging.info("Acceso autorizado al panel de administracion.")
+            return True
+        else:
+            intentos += 1
+            print(f"Contrasena incorrecta. Te quedan {3 - intentos} intentos.")
+    
+    # Tras 3 intentos fallidos, log ERROR y el programa se cierra
+    logging.error("Acceso bloqueado: 3 intentos fallidos.")
+    print("Sistema bloqueado por seguridad. Cerrando programa...")
+    sys.exit()
+
+# 2.3 Analisis de Datos con Pandas
+def panel_administracion():
+    print("--- PANEL DE ADMINISTRACION ---")
+    try:
+        # Usamos Pandas para leer el ticket JSON guardado
+        df_ticket = pd.read_json('datos/ultimo_ticket.json', typ='series')
+        
+        total_recaudado = df_ticket['total']
+        media_ticket = df_ticket['total']
+        
+        # Mostrar el total y la media
+        print(f"Total de dinero recaudado: {total_recaudado:.2f} euros")
+        print(f"Media de gasto por ticket: {media_ticket:.2f} euros")
+        
+    except FileNotFoundError:
+        print("Aun no hay ventas registradas para analizar.")
+    except Exception as e:
+        print(f"Error al leer los datos con Pandas: {e}")
